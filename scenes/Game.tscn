@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/bgfruitninja.jpg" type="Texture" id=1]
+[ext_resource path="res://scripts/Game.gd" type="Script" id=2]
+[ext_resource path="res://scripts/InputProc.gd" type="Script" id=3]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( -0.735107, 0.318726 )
+scale = Vector2( 0.8, 0.606667 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Fruits" type="Node2D" parent="."]
+
+[node name="Generator" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="InputProc" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Inter" type="Timer" parent="InputProc"]
+wait_time = 0.1
+
+[node name="Limit" type="Timer" parent="InputProc"]
+wait_time = 2.0
+
+[connection signal="timeout" from="Generator" to="." method="_on_Generator_timeout"]
+[connection signal="timeout" from="InputProc/Inter" to="InputProc" method="_on_Inter_timeout"]
+[connection signal="timeout" from="InputProc/Limit" to="InputProc" method="_on_Limit_timeout"]
